@@ -22,6 +22,11 @@ module.exports = {
           "css-loader",
         ],
       },
+      {
+        test: /\.s[ac]ss$/,
+        // npm i sass-loader sass -D
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
     ],
   },
   plugins: [

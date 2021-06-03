@@ -5,6 +5,7 @@
  */
 
 import "./css/style.css";
+import "./css/app.scss";
 
 function add(a, b) {
   return a + b;
