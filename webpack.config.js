@@ -10,7 +10,7 @@ module.exports = {
   module: {
     rules: [
       {
-        // 匹配哪些文件
+        // 处理css资源, 匹配哪些文件
         test: /\.css$/,
         // 使用哪些loader进行处理
         // npm i css-loader style-loader -D
@@ -23,9 +23,37 @@ module.exports = {
         ],
       },
       {
+        // 处理sass资源
         test: /\.s[ac]ss$/,
         // npm i sass-loader sass -D
         use: ["style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        // 处理图片资源
+        test: /\.(jpg|png|gif)$/,
+        loader: "url-loader",
+        options: {
+          limit: 8 * 1024,
+          name: "[hash:10].[ext]",
+          // 关闭es6模块化
+          esModule: false,
+          // 在输出目录下的路径
+          outputPath: "img",
+        },
+      },
+      {
+        // 处理html中image资源
+        test: /\.html$/,
+        loader: "html-loader",
+      },
+      {
+        // 处理其它资源
+        exclude: /\.(html|js|css|less|sass|scss|jpg|png|gif)/,
+        loader: "file-loader",
+        options: {
+          name: "[hash:10].[ext]",
+          outputPath: "asset",
+        },
       },
     ],
   },
