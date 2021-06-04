@@ -1,3 +1,8 @@
 h1 {
   color: grey;
 }
+
+body {
+  display: flex;
+  backface-visibility: hidden;
+}

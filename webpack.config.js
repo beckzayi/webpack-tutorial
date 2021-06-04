@@ -1,6 +1,9 @@
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+// 设置node环境变量
+process.env.NODE_ENV = "development";
+
 module.exports = {
   entry: "./src/index.js",
   output: {
@@ -20,6 +23,36 @@ module.exports = {
           "style-loader",
           // 将css文件变成commonjs模块加载js中，里面内容是样式字符串
           "css-loader",
+
+          /**
+            * css 兼容性处理: 使用 postcss --> postcss-loader, postcss-preset-env
+            * 帮postcss找到package.json中browserslist里面的配置, 通过配置加载指定的css兼容性样式
+                "browserslist": {
+                    // 开发环境 --> 设置node环境变量: process.env.NODE_ENV = development
+                    // 设置了node环境变量为development后, 将使用开发环境
+                    "development": [
+                        "last 1 chrome version",
+                        "last 1 firefox version",
+                        "last 1 safari version"
+                    ],
+                    // 生产环境: 默认是看生产环境
+                    "production": [
+                        ">0.2%",
+                        "not dead",
+                        "not op_mini all"
+                    ]
+                }
+            * 
+          */
+          // postcss-loader
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [["postcss-preset-env"]],
+              },
+            },
+          },
         ],
       },
       {
