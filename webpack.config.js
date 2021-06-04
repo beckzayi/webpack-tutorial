@@ -1,6 +1,7 @@
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 // 设置node环境变量
 process.env.NODE_ENV = "development";
@@ -119,5 +120,14 @@ module.exports = {
     port: 3004,
     // 自动打开默认的浏览器
     open: true,
+  },
+
+  optimization: {
+    minimizer: [
+      // This will enable CSS optimization only in production mode.
+      new CssMinimizerPlugin(),
+    ],
+    // If want to compress CSS in development env, set the optimization.minimize option to true
+    // minimize: true,
   },
 };
