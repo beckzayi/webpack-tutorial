@@ -1,5 +1,6 @@
 const { resolve } = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 // 设置node环境变量
 process.env.NODE_ENV = "development";
@@ -20,7 +21,9 @@ module.exports = {
         use: [
           // use 数组中的loader执行顺序: 从右到左，从下到上依次执行
           // 创建style标签，将js中的样式资源插入进行，添加到head中生效
-          "style-loader",
+          // "style-loader", // ignore style-loader when using MiniCssExtractPlugin
+          // mini-css-extract-plugin 取代了 style-loader. 作用: 提取js中的css成单独css文件
+          MiniCssExtractPlugin.loader,
           // 将css文件变成commonjs模块加载js中，里面内容是样式字符串
           "css-loader",
 
@@ -96,6 +99,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       // 复制该index.html文件, 并自动引入打包输出所有资源 (JS/CSS)
       template: resolve(__dirname, "src", "index.html"),
+    }),
+    new MiniCssExtractPlugin({
+      // 对输出的css文件进行重命名
+      filename: "css/built.css",
     }),
   ],
   mode: "development",
