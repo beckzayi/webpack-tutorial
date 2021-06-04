@@ -38,4 +38,18 @@ module.exports = {
     }),
   ],
   mode: "development",
+
+  // 开发服务器devServer: 用来自动化 (自动编译刷新, 自动打开浏览器)
+  // 特点: 不会有任何输出, 只会在内存中编译打包
+  // 启动devServer指令为: npx webpack serve --open
+  devServer: {
+    // 项目构建后路径
+    contentBase: resolve(__dirname, "build"),
+    // 启动gzip压缩
+    compress: true,
+    // 端口号
+    port: 3004,
+    // 自动打开默认的浏览器
+    open: true,
+  },
 };
