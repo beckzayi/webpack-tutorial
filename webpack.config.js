@@ -109,6 +109,21 @@ module.exports = {
       //       fix: true,
       //     },
       //   },
+
+      /**
+       * Compatible JS: babel-loader @babel/core @babel/preset-env
+       * 1. 基本js兼容性处理 --> @babel/preset-env
+       * 2. 全部js兼容性处理 --> @babel/polyfill, 例如Promise
+       *    问题是: 若只想解决部分兼容性问题, 但将所有兼容性js代码全部引入, 体积太大.
+       */
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env'],
+        },
+      },
     ],
   },
   plugins: [
