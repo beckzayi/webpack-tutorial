@@ -92,6 +92,22 @@ module.exports = {
           outputPath: "asset",
         },
       },
+
+      /**
+       * 语法检查: eslint-loader eslint
+       * 注意:只检查自己写的代码, 第三方库无需检查
+       * 设置检查规则: package.json 中 eslintConfig 设置 airbnb
+       * eslint-config-airbnb-base: 需要 eslint, eslint-plugin-import
+       */
+      //   {
+      //     test: /\.js$/,
+      //     exclude: /node_modules/, // 不检查第三方的库
+      //     loader: "eslint-loader",
+      //     options: {
+      //       // 自动修复 eslint 的错误
+      //       fix: true,
+      //     },
+      //   },
     ],
   },
   plugins: [

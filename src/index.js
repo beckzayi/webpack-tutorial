@@ -11,4 +11,9 @@ function add(a, b) {
   return a + b;
 }
 
+// eslint-disable-next-line
 console.log(add(1, 2));
+
+function subtract(x, y) {
+  return x - y;
+}
