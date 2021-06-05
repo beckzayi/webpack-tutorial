@@ -11,6 +11,7 @@ module.exports = {
   output: {
     filename: 'js/built.js',
     path: resolve(__dirname, 'build'),
+    clean: true,
   },
   module: {
     rules: [
