@@ -4,7 +4,6 @@
  *      生产环境: npx webpack ./src/index.js -o ./build --mode=production
  */
 
-import '@babel/polyfill';
 import './css/style.css';
 import './css/app.scss';
 
