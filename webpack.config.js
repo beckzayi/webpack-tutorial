@@ -1,16 +1,16 @@
-const { resolve } = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const { resolve } = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 // 设置node环境变量
-process.env.NODE_ENV = "development";
+process.env.NODE_ENV = 'development';
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: './src/index.js',
   output: {
-    filename: "js/built.js",
-    path: resolve(__dirname, "build"),
+    filename: 'js/built.js',
+    path: resolve(__dirname, 'build'),
   },
   module: {
     rules: [
@@ -26,7 +26,7 @@ module.exports = {
           // mini-css-extract-plugin 取代了 style-loader. 作用: 提取js中的css成单独css文件
           MiniCssExtractPlugin.loader,
           // 将css文件变成commonjs模块加载js中，里面内容是样式字符串
-          "css-loader",
+          'css-loader',
 
           /**
             * css 兼容性处理: 使用 postcss --> postcss-loader, postcss-preset-env
@@ -50,10 +50,10 @@ module.exports = {
           */
           // postcss-loader
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: [["postcss-preset-env"]],
+                plugins: [['postcss-preset-env']],
               },
             },
           },
@@ -63,33 +63,33 @@ module.exports = {
         // 处理sass资源
         test: /\.s[ac]ss$/,
         // npm i sass-loader sass -D
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         // 处理图片资源
         test: /\.(jpg|png|gif)$/,
-        loader: "url-loader",
+        loader: 'url-loader',
         options: {
           limit: 8 * 1024,
-          name: "[hash:10].[ext]",
+          name: '[hash:10].[ext]',
           // 关闭es6模块化
           esModule: false,
           // 在输出目录下的路径
-          outputPath: "img",
+          outputPath: 'img',
         },
       },
       {
         // 处理html中image资源
         test: /\.html$/,
-        loader: "html-loader",
+        loader: 'html-loader',
       },
       {
         // 处理其它资源
         exclude: /\.(html|js|css|less|sass|scss|jpg|png|gif)/,
-        loader: "file-loader",
+        loader: 'file-loader',
         options: {
-          name: "[hash:10].[ext]",
-          outputPath: "asset",
+          name: '[hash:10].[ext]',
+          outputPath: 'asset',
         },
       },
 
@@ -115,21 +115,21 @@ module.exports = {
     // 需求: 需要有结构的HTML文件
     new HtmlWebpackPlugin({
       // 复制该index.html文件, 并自动引入打包输出所有资源 (JS/CSS)
-      template: resolve(__dirname, "src", "index.html"),
+      template: resolve(__dirname, 'src', 'index.html'),
     }),
     new MiniCssExtractPlugin({
       // 对输出的css文件进行重命名
-      filename: "css/built.css",
+      filename: 'css/built.css',
     }),
   ],
-  mode: "development",
+  mode: 'development',
 
   // 开发服务器devServer: 用来自动化 (自动编译刷新, 自动打开浏览器)
   // 特点: 不会有任何输出, 只会在内存中编译打包
   // 启动devServer指令为: npx webpack serve --open
   devServer: {
     // 项目构建后路径
-    contentBase: resolve(__dirname, "build"),
+    contentBase: resolve(__dirname, 'build'),
     // 启动gzip压缩
     compress: true,
     // 端口号

@@ -4,8 +4,8 @@
  *      生产环境: npx webpack ./src/index.js -o ./build --mode=production
  */
 
-import "./css/style.css";
-import "./css/app.scss";
+import './css/style.css';
+import './css/app.scss';
 
 function add(a, b) {
   return a + b;
