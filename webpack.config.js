@@ -6,6 +6,21 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 // 设置node环境变量
 process.env.NODE_ENV = 'development';
 
+// Make an array, and spread it
+// const commonCssLoader = [
+//   MiniCssExtractPlugin.loader,
+//   'css-loader',
+//   {
+//     loader: 'postcss-loader',
+//     options: {
+//       postcssOptions: {
+//         plugins: [['postcss-preset-env']],
+//       },
+//     },
+//   },
+// ];
+// [...commonCssLoader]
+
 module.exports = {
   entry: './src/index.js',
   output: {
@@ -103,6 +118,7 @@ module.exports = {
       //   {
       //     test: /\.js$/,
       //     exclude: /node_modules/, // 不检查第三方的库
+      //     enforce: 'pre', // 优先执行该loader 如果这个文件类型需要被多个loader处理
       //     loader: "eslint-loader",
       //     options: {
       //       // 自动修复 eslint 的错误
@@ -116,6 +132,10 @@ module.exports = {
        * 2. 全部js兼容性处理 --> @babel/polyfill, 例如Promise
        *    问题是: 若只想解决部分兼容性问题, 但将所有兼容性js代码全部引入, 体积太大.
        * 3. 兼容性处理: 按需加载 --> core-js
+       */
+      /**
+       * 正常来说, 一种文件只能被一个loader处理。当要被多个loader处理时, 那么要指定loader执行的先后顺序.
+       * 先执行eslint 再执行babel 较合理和合适
        */
       {
         test: /\.js$/,
@@ -160,6 +180,7 @@ module.exports = {
       filename: 'css/built.css',
     }),
   ],
+  // 生产环境下会自动压缩
   mode: 'development',
 
   // 开发服务器devServer: 用来自动化 (自动编译刷新, 自动打开浏览器)
