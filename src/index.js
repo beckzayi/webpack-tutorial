@@ -6,6 +6,7 @@
 
 import './css/style.css';
 import './css/app.scss';
+import printMe from './print';
 
 const add = (a, b) => {
   return a + b;
@@ -16,4 +17,11 @@ console.log(add(1, 2));
 
 function subtract(x, y) {
   return x - y;
+}
+
+if (module.hot) {
+  module.hot.accept('./print.js', function () {
+    console.log('Accepting the updated printMe module!');
+    printMe();
+  });
 }

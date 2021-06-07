@@ -22,7 +22,7 @@ process.env.NODE_ENV = 'development';
 // [...commonCssLoader]
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ['./src/index.js', './src/index.html'],
   output: {
     filename: 'js/built.js',
     path: resolve(__dirname, 'build'),
@@ -196,6 +196,18 @@ module.exports = {
     // 自动打开默认的浏览器
     open: true,
     // 开启 Hot Module Replacement 功能
+    /**
+     * Hot Module Replacement 热模块替换
+     * 作用: 一个模块发生变化, 只会重新打包这一个模块 (而不是打包所有模块)，将提升构建速度
+     * 样式文件: 可以使用HMR功能, 因为style-loader内部实现了
+     * js文件: 默认不能使用HMR功能
+     *    解决: 用 module.hot 去检查, 若开启了HMR, 那么则有 module.hot, 然后指定那个js模块文件
+     *    注意: HMR功能对js的处理, 只能处理非入口js文件的其它js文件.
+     * html文件: 默认不能使用HMR功能, 同时会导致问题: html文件不能热更新 (一般情况下不用做HMR功能)
+     *    解决: 修改entry入口, 将html文件引入
+     * 无法对入口文件作HMR, 因为它引入了其它模块文件, 一旦入口文件有变化, 其它文件将被重新加载
+     * 因此HMR只能应用于引入依赖的模块文件
+     */
     hot: true,
   },
 
@@ -208,5 +220,5 @@ module.exports = {
     // minimize: true,
   },
 
-  target: 'web',
+  target: 'web', // only for development
 };
