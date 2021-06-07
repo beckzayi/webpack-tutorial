@@ -30,6 +30,14 @@ module.exports = {
   },
   module: {
     rules: [
+      /**
+       * oneOf 只会匹配一个 loader. 使用 oneOf 时, 不能有2个loader配置去处理同一种类型文件
+       * 若需使用2个loader, 那么需把一个loader单独放出来
+       * 作用: 提高构建速度, 无需每一个loader配置都过一遍
+       */
+      // {
+      //   oneOf: [...rules]
+      // }
       {
         // 处理css资源, 匹配哪些文件
         test: /\.css$/,
