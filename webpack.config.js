@@ -211,6 +211,17 @@ module.exports = {
     hot: true,
   },
 
+  /**
+   * source-map: 一种提供源代码到构建后代码映射的技术 (如果构建后代码出了错, 通过映射可追踪到源代码出错)
+   * 例如, 有个错误来自于 print.js, 浏览器console会显示该错误来自于print.js
+   * 如果没有source-map, 则只会在 built.js 中提到错误, 不会提示来自于 print.js
+   * 开发环境: 速度快 (eval>inline>cheap), 调试友好 - eval-source-map (React脚手架用了这个), eval-cheap-module-source-map
+   * 生产环境: 源代码要不要隐藏 (nosources-source-map)? 调试要不要友好 (source-map)?
+   *          inline-source-map 会让文件较大
+   * 最后的选择: 开发环境用 eval-source-map, 生产环境用 source-map
+   */
+  devtool: 'source-map',
+
   optimization: {
     minimizer: [
       // This will enable CSS optimization only in production mode.
