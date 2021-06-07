@@ -17,5 +17,3 @@ console.log(add(1, 2));
 function subtract(x, y) {
   return x - y;
 }
-
-const promise = new Promise();

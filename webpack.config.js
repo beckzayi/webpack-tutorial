@@ -195,6 +195,8 @@ module.exports = {
     port: 3004,
     // 自动打开默认的浏览器
     open: true,
+    // 开启 Hot Module Replacement 功能
+    hot: true,
   },
 
   optimization: {
@@ -205,4 +207,6 @@ module.exports = {
     // If want to compress CSS in development env, set the optimization.minimize option to true
     // minimize: true,
   },
+
+  target: 'web',
 };
