@@ -21,10 +21,22 @@ process.env.NODE_ENV = 'development';
 // ];
 // [...commonCssLoader]
 
+/**
+ * 缓存:
+ *    babel缓存 (babel-loader)
+ *        cacheDirectory: true
+ *    文件资源缓存
+ *        hash: 每次webpack构建时会生成一个唯一的hash值
+ *            问题: 如果js和css同时使用一个hash值, 重新打包后, 会导致所有缓存失效 (只改动了一个文件)
+ *        chunkhash: 根据chunk生成的hash值. 如果打包来源于同一个chunk, 那么hash值就一样
+ *            问题: js和css的hash值还是一样的. 因为css是在js中被导入的, 所以同属于一个chunk
+ *        contenthash: 根据文件的内容生成hash值. 不同文件hash值一定不一样
+ */
+
 module.exports = {
   entry: ['./src/index.js', './src/index.html'],
   output: {
-    filename: 'js/built.js',
+    filename: 'js/built.[contenthash:10].js',
     path: resolve(__dirname, 'build'),
     clean: true,
   },
@@ -172,6 +184,9 @@ module.exports = {
               },
             ],
           ],
+          // 开启babel缓存
+          // 第二次构建时, 会读取之前的缓存
+          cacheDirectory: true,
         },
       },
     ],
@@ -185,7 +200,7 @@ module.exports = {
     }),
     new MiniCssExtractPlugin({
       // 对输出的css文件进行重命名
-      filename: 'css/built.css',
+      filename: 'css/built.[contenthash:10].css',
     }),
   ],
   // 生产环境下会自动压缩
