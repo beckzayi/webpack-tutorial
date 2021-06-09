@@ -44,9 +44,15 @@ process.env.NODE_ENV = 'development';
  */
 
 module.exports = {
-  entry: ['./src/index.js', './src/index.html'],
+  // entry: ['./src/index.js', './src/index.html'],
+  entry: './src/index.js', // 单入口
+  // entry: {
+  //   // 多入口
+  //   index: './src/index.js',
+  //   print: './src/print.js',
+  // },
   output: {
-    filename: 'js/built.[contenthash:10].js',
+    filename: 'js/built.[name].[contenthash:10].js',
     path: resolve(__dirname, 'build'),
     clean: true,
   },
@@ -262,6 +268,15 @@ module.exports = {
     ],
     // If want to compress CSS in development env, set the optimization.minimize option to true
     // minimize: true,
+
+    /**
+     * Code split
+     * 1. 可以将node_modules中代码单独打包一个chunk最终输出
+     * 2. 自动分析多入库chunk中, 有没有公共的文件. 如果有, 那么会自动打包成单独一个旅长
+     */
+    splitChunks: {
+      chunks: 'all',
+    },
   },
 
   target: 'web', // only for development

@@ -3,3 +3,5 @@ const print = () => {
 };
 
 export default print;
+
+export const multiply = (x, y) => x * y;
