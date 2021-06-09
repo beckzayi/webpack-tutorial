@@ -220,7 +220,7 @@ module.exports = {
     }),
   ],
   // 生产环境下会自动压缩
-  mode: 'development',
+  mode: 'production',
 
   // 开发服务器devServer: 用来自动化 (自动编译刷新, 自动打开浏览器)
   // 特点: 不会有任何输出, 只会在内存中编译打包
