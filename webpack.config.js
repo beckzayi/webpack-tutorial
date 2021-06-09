@@ -33,6 +33,16 @@ process.env.NODE_ENV = 'development';
  *        contenthash: 根据文件的内容生成hash值. 不同文件hash值一定不一样
  */
 
+/**
+ * tree shaking: 去除无用代码
+ *    前提: 1.必须使用ES6模块化. 2.开启production环境
+ *    效果: export function add(x, y), 但在其它文件并没导入该 function add, 那么 tree shaking 将会去除这个 function add
+ *
+ * 有一种情况: 在package.json中配置 "sideEffects": false, 那么所有代码都没副作用 (都可进行tree-shaking)
+ *            出现一个问题: 该设置false, 胡把 import css 和 @babel/polyfill (副作用) 等文件干掉
+ *            解决方法: "sideEffects": ["*.css", *.scss""]
+ */
+
 module.exports = {
   entry: ['./src/index.js', './src/index.html'],
   output: {
