@@ -52,3 +52,24 @@ document.getElementById('btn').onclick = function () {
     console.log(multiply(4, 5));
   });
 };
+
+/**
+ * 1. eslint 不认识 windows, navigator 全家变量
+ *    解决: 改package.json中eslintconfig
+ *    "env": {
+ *      "browser": true
+ *    }
+ * 2. 关于验证, service worker 代码必须运行在服务器
+ *    1) nodejs 中写
+ *    2) npm i server -g, serve -s build 启动服务器, 将build目录下所有资源作为静态自己包里出去
+ */
+// 注册serviceWorker
+// 处理兼容性问题
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('./service-worker.js')
+      .then(() => console.log('Service Worker 注册成功'))
+      .catch(() => console.log('Service Worker 注册失败'));
+  });
+}

@@ -2,6 +2,7 @@ const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
 // 设置node环境变量
 process.env.NODE_ENV = 'development';
@@ -217,6 +218,16 @@ module.exports = {
     new MiniCssExtractPlugin({
       // 对输出的css文件进行重命名
       filename: 'css/built.[contenthash:10].css',
+    }),
+    /**
+     * PWA 渐进式往来开发程序 (离线可访问)
+     * 1. 帮助service worker快速启动
+     * 2. 删除旧的service worker
+     * 生成一个 service-worker 配置文件
+     */
+    new WorkboxWebpackPlugin.GenerateSW({
+      clientsClaim: true,
+      skipWaiting: true,
     }),
   ],
   // 生产环境下会自动压缩
