@@ -291,4 +291,9 @@ module.exports = {
   },
 
   target: 'web', // only for development
+
+  externals: {
+    // 拒绝jQuery被打包进来 (当jQuery由cdn引入时)
+    jquery: 'jQuery',
+  },
 };
